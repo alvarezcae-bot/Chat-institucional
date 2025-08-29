@@ -1,4 +1,4 @@
-const webhookUrl = "https://d780cd998562.ngrok-free.app/webhook/chat"; // Ajusta si tu endpoint es diferente
+const webhookUrl = "https://d780cd998562.ngrok-free.app/webhook/chat"; // Asegúrate que este endpoint esté activo
 
 export async function sendMessage() {
   const input = document.getElementById("userInput");

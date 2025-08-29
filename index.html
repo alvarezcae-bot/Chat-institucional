@@ -39,6 +39,10 @@
   <script type="module">
     const webhookUrl = "https://d780cd998562.ngrok-free.app/webhook/chat-agent"; // Actualiza si ngrok cambia
 
+    // Generar o recuperar sessionId
+    const sessionId = localStorage.getItem("sessionId") || crypto.randomUUID();
+    localStorage.setItem("sessionId", sessionId);
+
     async function sendMessage() {
       const input = document.getElementById("userInput");
       const chatLog = document.getElementById("chatLog");
@@ -60,6 +64,7 @@
             "ngrok-skip-browser-warning": "true"
           },
           body: JSON.stringify({
+            sessionId: sessionId,
             messages: [
               {
                 role: "user",

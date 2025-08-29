@@ -22,16 +22,23 @@
       margin: 0.5em;
       font-size: 1em;
     }
+    #chatLog p {
+      text-align: left;
+      margin: 0.5em 0;
+    }
   </style>
 </head>
 <body>
-  <h1>Chat Institucional</h1>
+  <h1>Bienvenido al Chat Institucional</h1>
   <div id="n8n-chat">
     <input type="text" id="userInput" placeholder="Escribe tu mensaje..." />
-    <button onclick="sendMessage()">Enviar</button>
+    <button id="sendBtn">Enviar</button>
     <div id="chatLog"></div>
   </div>
 
-  <script type="module" src="chat.js"></script>
+  <script type="module">
+    import { sendMessage } from './chat.js';
+    document.getElementById("sendBtn").addEventListener("click", sendMessage);
+  </script>
 </body>
 </html>

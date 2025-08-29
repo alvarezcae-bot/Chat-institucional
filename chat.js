@@ -1,4 +1,4 @@
-const webhookUrl = "https://TU_URL_DE_NGROK/webhook/chat-agent";
+const webhookUrl = "https://d780cd998562.ngrok-free.app/webhook/chat-agent";
 
 // Generar o recuperar sessionId
 const sessionId = localStorage.getItem("sessionId") || crypto.randomUUID();

@@ -7,7 +7,7 @@
     body {
       font-family: sans-serif;
       padding: 2em;
-      background: #f9f9f9;
+      background: #f0f0f0;
       text-align: center;
     }
     #n8n-chat {
@@ -17,13 +17,21 @@
       max-width: 600px;
       margin: auto;
     }
+    input, button {
+      padding: 0.5em;
+      margin: 0.5em;
+      font-size: 1em;
+    }
   </style>
 </head>
 <body>
-  <h1>Bienvenido al Chat Institucional</h1>
-  <div id="n8n-chat">Cargando chat...</div>
+  <h1>Chat Institucional</h1>
+  <div id="n8n-chat">
+    <input type="text" id="userInput" placeholder="Escribe tu mensaje..." />
+    <button onclick="sendMessage()">Enviar</button>
+    <div id="chatLog"></div>
+  </div>
 
-  <!-- Carga del script local -->
   <script type="module" src="chat.js"></script>
 </body>
 </html>

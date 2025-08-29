@@ -1,28 +1,38 @@
-import { createChat } from "https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js";
+const webhookUrl = "https://d780cd998562.ngrok-free.app/webhook/chat"; // Ajusta si tu endpoint es diferente
 
-createChat({
-  webhookUrl: "https://d780cd998562.ngrok-free.app/webhook/chat-agente",
-  webhookConfig: {
-    method: "POST",
-    headers: {
-      'ngrok-skip-browser-warning': 'true'
-    }
-  },
-  target: "#n8n-chat",
-  chatSessionKey: 'session-key',
-  loadPreviousSession: true,
-  defaultLanguage: 'es',
-  messages: [
-    {
-      role: 'system',
-      content: 'Eres un asistente institucional cálido y profesional. Tu objetivo es apoyar a la comunidad en temas de salud, autocuidado y campañas educativas.'
-    },
-    {
-      role: 'assistant',
-      content: 'Hola 👋 Soy Nathan, el asistente institucional. Estoy aquí para ayudarte con tus dudas sobre autocuidado, campañas comunitarias y servicios disponibles.',
-      force: true
-    }
-  ],
-  subtitle: 'Nueva conversación',
-  inputPlaceholder: 'Escribe tu pregunta...',
-});
+export async function sendMessage() {
+  const input = document.getElementById("userInput");
+  const chatLog = document.getElementById("chatLog");
+  const message = input.value.trim();
+
+  if (!message) return;
+
+  // Mostrar mensaje del usuario
+  const userMsg = document.createElement("p");
+  userMsg.textContent = "👤 Tú: " + message;
+  chatLog.appendChild(userMsg);
+
+  input.value = "";
+
+  try {
+    const response = await fetch(webhookUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ message })
+    });
+
+    const data = await response.json();
+
+    // Mostrar respuesta del bot
+    const botMsg = document.createElement("p");
+    botMsg.textContent = "🤖 Bot: " + (data.reply || "Sin respuesta");
+    chatLog.appendChild(botMsg);
+  } catch (error) {
+    const errorMsg = document.createElement("p");
+    errorMsg.textContent = "⚠️ Error al conectar con el servidor.";
+    chatLog.appendChild(errorMsg);
+    console.error("Error:", error);
+  }
+}

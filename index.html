@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Chat Institucional</title>
+  <style>
+    body { font-family: sans-serif; padding: 2em; background: #f9f9f9; }
+    #n8n-chat { border: 1px solid #ccc; padding: 1em; background: #fff; }
+  </style>
+</head>
+<body>
+  <h1>Bienvenido al Chat Institucional</h1>
+  <div id="n8n-chat"></div>
+
+  <script type="module">
+    import { createChat } from "https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js";
+
+    createChat({
+      webhookUrl: "https://d780cd998562.ngrok-free.app/webhook/chat-agente",
+      webhookConfig: {
+        method: "POST",
+        headers: {
+          'ngrok-skip-browser-warning': 'true'
+        }
+      },
+      target: "#n8n-chat",
+      chatSessionKey: 'session-key',
+      loadPreviousSession: true,
+      defaultLanguage: 'es',
+      messages: [
+        { role: 'system', content: 'Eres un asistente útil.' },
+        { role: 'user', content: 'Hola, ¿en qué puedo ayudarte hoy?' },
+        { role: 'assistant', content: '¡Hola! Mi nombre es Nathan. ¿Cómo puedo ayudarte hoy?' },
+        { role: 'user', content: 'Hi there!' },
+        { role: 'assistant', content: 'Claro. ¿De qué trata el chat? Estoy aquí para ayudarte 24/7.', force: true }
+      ],
+      subtitle: 'Nueva conversación',
+      inputPlaceholder: 'Escribe tu pregunta...',
+    });
+  </script>
+</body>
+</html>

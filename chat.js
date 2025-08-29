@@ -1,0 +1,28 @@
+import { createChat } from "https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js";
+
+createChat({
+  webhookUrl: "https://d780cd998562.ngrok-free.app/webhook/chat-agente",
+  webhookConfig: {
+    method: "POST",
+    headers: {
+      'ngrok-skip-browser-warning': 'true'
+    }
+  },
+  target: "#n8n-chat",
+  chatSessionKey: 'session-key',
+  loadPreviousSession: true,
+  defaultLanguage: 'es',
+  messages: [
+    {
+      role: 'system',
+      content: 'Eres un asistente institucional cálido y profesional. Tu objetivo es apoyar a la comunidad en temas de salud, autocuidado y campañas educativas.'
+    },
+    {
+      role: 'assistant',
+      content: 'Hola 👋 Soy Nathan, el asistente institucional. Estoy aquí para ayudarte con tus dudas sobre autocuidado, campañas comunitarias y servicios disponibles.',
+      force: true
+    }
+  ],
+  subtitle: 'Nueva conversación',
+  inputPlaceholder: 'Escribe tu pregunta...',
+});

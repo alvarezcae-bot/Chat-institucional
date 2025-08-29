@@ -28,12 +28,10 @@
       loadPreviousSession: true,
       defaultLanguage: 'es',
       messages: [
-        { role: 'system', content: 'Eres un asistente útil.' },
-        { role: 'user', content: 'Hola, ¿en qué puedo ayudarte hoy?' },
-        { role: 'assistant', content: '¡Hola! Mi nombre es Nathan. ¿Cómo puedo ayudarte hoy?' },
-        { role: 'user', content: 'Hi there!' },
-        { role: 'assistant', content: 'Claro. ¿De qué trata el chat? Estoy aquí para ayudarte 24/7.', force: true }
-      ],
+      messages: [
+  { role: 'system', content: 'Eres un asistente institucional cálido y profesional. Tu objetivo es apoyar a la comunidad en temas de salud, autocuidado y campañas educativas.' },
+  { role: 'assistant', content: 'Hola 👋 Soy el asistente institucional. Estoy aquí para ayudarte con tus dudas sobre autocuidado, campañas comunitarias y servicios disponibles.', force: true }
+],
       subtitle: 'Nueva conversación',
       inputPlaceholder: 'Escribe tu pregunta...',
     });

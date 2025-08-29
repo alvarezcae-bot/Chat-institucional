@@ -1,38 +1,26 @@
-const webhookUrl = "https://d780cd998562.ngrok-free.app/webhook/chat"; // Asegúrate que este endpoint esté activo
+const webhookUrl = "https://TU_URL_DE_NGROK/webhook/chat-agent";
 
-export async function sendMessage() {
-  const input = document.getElementById("userInput");
-  const chatLog = document.getElementById("chatLog");
-  const message = input.value.trim();
+// Generar o recuperar sessionId
+const sessionId = localStorage.getItem("sessionId") || crypto.randomUUID();
+localStorage.setItem("sessionId", sessionId);
 
-  if (!message) return;
+// Enviar mensaje al Webhook
+async function sendMessage(userInput) {
+  const response = await fetch(webhookUrl, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      sessionId: sessionId,
+      messages: [
+        {
+          role: "user",
+          content: userInput
+        }
+      ]
+    })
+  });
 
-  // Mostrar mensaje del usuario
-  const userMsg = document.createElement("p");
-  userMsg.textContent = "👤 Tú: " + message;
-  chatLog.appendChild(userMsg);
-
-  input.value = "";
-
-  try {
-    const response = await fetch(webhookUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ message })
-    });
-
-    const data = await response.json();
-
-    // Mostrar respuesta del bot
-    const botMsg = document.createElement("p");
-    botMsg.textContent = "🤖 Bot: " + (data.reply || "Sin respuesta");
-    chatLog.appendChild(botMsg);
-  } catch (error) {
-    const errorMsg = document.createElement("p");
-    errorMsg.textContent = "⚠️ Error al conectar con el servidor.";
-    chatLog.appendChild(errorMsg);
-    console.error("Error:", error);
-  }
+  const data = await response.json();
+  const assistantReply = data.messages?.[0]?.content || "⚠️ Error en la respuesta";
+  displayMessage("assistant", assistantReply);
 }
